@@ -25,6 +25,6 @@ syntax_highlighter: rouge
 #  coderay:
 #  coderay_line_numbers:  nil
 
-# White-listed plugins
+# White-listed plugins  
 gems:
   - jekyll-sitemap
