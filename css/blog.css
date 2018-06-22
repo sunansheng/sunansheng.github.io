@@ -2,7 +2,8 @@
 .fancy, article {
   /*font-family: 'lucida grande', 'lucida sans unicode', lucida, 'Helvetica Neue', helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;*/
   font-family: Georgia, "Linux Libertine",-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif;
-  line-height: 170%;-webkit-user-select: none;
+  line-height: 170%;-webkit-user-select: none;-ms-user-select: none;-moz-user-select: none;user-select: none;
+
 }
 section {
   font-family: "Linux Libertine",-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif;
@@ -572,6 +573,7 @@ img[alt=drawing] { width: 60%; }
     background-color: #F5F5F5;
     white-space: pre-wrap; /*防止一行太长*/
 	-webkit-user-select:text;
+	-ms-user-select: text;-moz-user-select: text;user-select: text;
 }
 .post pre{
     font-size:.8rem;  /*设置代码字体大小*/
