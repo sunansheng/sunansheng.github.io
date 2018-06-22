@@ -5,15 +5,9 @@ category: categories
 ---
 
 <link rel="stylesheet" href="../css/blog.css">
-<div class="subheader-container">
-<div class = "inner">
-<nav class = "sub-nav">
-    <a class="{% if page.category == 'blog' %} selected {% endif %}" href="/">Home</a>
-    <a class="{% if page.category == 'categories' %} selected {% endif %}" href="/blog/categories.html">Categories</a>
-    <!--<a class="{% if page.category == 'RSS' %} selected {% endif %}" href="/blog/feed.xml">RSS</a>-->
-</nav>
-</div>
-</div>
+
+ {% include post_menu.html %}
+ 
 <section class="inner">
 <div id='tag_cloud'>
 {% for cat in site.categories %}
