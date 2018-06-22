@@ -27,13 +27,7 @@ $(document).ready(function () {
         }
     });
 	
-	function go-search-content(){
-		$(".cb-search-tool").css("display", "block");
-                    show = true;
-                    $("#cb-search-content").val("");
-                    $("#cb-search-content").focus();
-		
-	}
+
 
     $("#cb-search-content").keyup(function (e) {
         var time2 = new Date().getTime();
