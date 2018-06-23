@@ -48,17 +48,15 @@ VALUE
 包含数据库的名称、数据文件及日志文件的数量、数据库的检查点及SCN信息等：
 
 ```shell
-
-Db ID=1422785319=0x54cdfb27, Db Name='ORCL' "数据库名称"
+Db ID=1422785319=0x54cdfb27, Db Name='ORCL' 			"数据库名称"
 …… …… 
 name #7: /u01/app/oracle/oradata/orcl/system01.dbf
 creation size=0 block size=8192 status=0xe head=7 tail=7 dup=1
 tablespace 0, index=1 krfil=1 prev_file=0
 unrecoverable scn: 0x0000.00000000 01/01/1988 00:00:00
-Checkpoint cnt:896 scn: 0x0581.11a7072f 05/07/2016 02:47:32 "数据文件 Checkpoint scn"
-Stop scn: 0xffff.ffffffff 04/28/2016 10:19:34 "数据文件 Stop scn"
+Checkpoint cnt:896 scn: 0x0581.11a7072f 05/07/2016 02:47:32 	"数据文件 Checkpoint scn"
+Stop scn: 0xffff.ffffffff 04/28/2016 10:19:34 			"数据文件 Stop scn"
 Creation Checkpointed at scn:  0x0000.00000007 08/15/2009 00:16:48
-
 ```
 
 ### 3.2 数据文件头
@@ -96,7 +94,7 @@ Oracle在进行恢复时就需要根据低SCN和高SCN来确定需要的恢复�
 
 检查点是一个数据库事件，它存在的根本意义在于**减少崩溃恢复(Crash Recovery)时间**。检查点事件由CKPT后台进程触发，当检查点发生时，CKPT进程会负责通知DBWR进程将脏数据(Dirty Buffer)写出到数据文件上。CKPT进程的另外一个职责是负责更新数据文件头及控制文件上的检查点信息。
 
-### 4.1 检查点（C heckpoint）的工作原理 
+### 4.1 检查点（Checkpoint）的工作原理 
 
 在Oracle数据库中，当进行数据修改时，需要首先将数据读入内存中(Buffer Cache)，修改数据的同时，Oracle会记录重做(Redo)信息用于恢复。因为有了重做信息的存在，Oracle不需要在事务提交时(Commit)立即将变化的数据写回磁盘**(立即写的效率会很低)，**重做的存在也正是为了在数据库崩溃之后，数据可以恢复。
 
@@ -112,13 +110,18 @@ Oracle在进行恢复时就需要根据低SCN和高SCN来确定需要的恢复�
 
 ```sql
 SQL> alter system checkpoint;
-
 System altered
 ```
 
-**在检查点完成之后，此检查点之前修改过的数据都已经写回磁盘，**重做日志文件中的相应重做记录对于崩溃/实例恢复不再有用。 
+在检查点完成之后，**此检查点之前修改过的数据都已经写回磁盘，**重做日志文件中的相应重做记录对于崩溃/实例恢复不再有用。 
+
+下图标记了3个日志组，假定在T1时间点，数据库完成并记录了最后一次检查点，在T2时刻数据库Crash。那么在下次数据库启动时，T1时间点之前的Redo不再需要进行恢复，Oracle需要重新应用的就是T1至T2之间数据库生成的重做(Redo)日志。
+
+![](/images/posts/20180623134409.jpg)
 
 检查点的频度对于数据库的恢复时间具有极大的影响，如果检查点的频率高，那么恢复时需要应用的重做日志就相对得少，恢复时间就可以缩短。然而，需要注意的是，数据库内部操作的相关性极强，过于频繁的检查点同样会带来性能问题，尤其是更新频繁的数据库。所以数据库的优化是一个系统工程，不能草率。
+
+
 
 ## 5. Oracle SCN机制解析
 
