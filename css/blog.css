@@ -10,6 +10,12 @@ section {
   line-height: 170%;
 }
 
+/*畅言屏蔽*/
+.section-service-w {
+	display:none;
+}
+/*end畅言屏蔽*/
+
 blockquote,
 h1,
 h2,
