@@ -15,15 +15,25 @@ Recovery Manager（RMAN)是一个用于备份(Backup)、还原(Restore)和恢复
 和用户管理的备份方式相比，使用 RMAN 具有以下一系列的优点:
 
 - 备份执行期间不需要人工介入，从而减少了误操作的可能。
+
 - 可以有效的将备份和恢复结合起来。
+
 - 支持除逻辑备份以外的所有备份类型，包括完全备份、增量备份、表空间备份、数据文件备份、控制文件备份以及归档日志文件备份等。
+
 - 可以通过 RMAN 识别 corrupted block，并可以通过 RMAN 进行块级恢复。
+
 - 方便的实现定期（定时）备份。
+
 - 自动生成备份日志。
+
 - RMAN 的备份脚本和 OS 无关，方便移植。
+
 - 强大的报表功能可以方便地获悉备份的可用性。
+
 - RMAN 备份可以跳过未使用过的数据块，从而缩减备份集大小。当使用系统工具拷贝Oracle文件进行备份时，是无法区分Oracle数据块是否使用的，RMAN则可以根据高水位标记（High Water Mark-HWM）来识别从未使用过的数据块，在备份时这些数据块可以被跳过。
+
 - 从 Oracle 10g 开始， Oracle 可以对备份集进行压缩，从而缩减备份空间的占用。备份压缩会消耗额外的CPU资源，但是可以节省存储，具体应该根据系统情况进行考虑。
+
 - 从 Oracle10g 开始，通过 RMAN可以实现跨平台的表空间迁移。
 
 可以看到，以上的一些优点中，显示了RMAN强大的功能。RMAN备份与恢复是基于块级别的，通过比较数据块避免备份没有使用过的块。
@@ -97,7 +107,7 @@ RMAN可以运行单个命令，也可以运行一个命令块、脚本文件命�
 
 大多数RMAN 命令都可以单独执行。这些命令包括关闭目标数据库命令SHUTDOWN、启动目标数据库命令STARTUP、备份表空间BACKUP TABLESPACE命令等。下面的命令备份USERS表空间：
 
-```shell
+```
 RMAN> BACKUP FORMAT '/u01/rman/%d_%s.bak'  TABLESPACE USERS; 
 
 Starting backup at 28-JUN-18
@@ -120,7 +130,7 @@ Finished Control File and SPFILE Autobackup at 28-JUN-18
 
 在RMAN下可以运行命令块。命令块是一组RMAN命令。当执行一个任务时，可以将这个任务的所有命令放在一个命令块中。但CONNECT、CREATE/DELETE/UPDATECATALOG、CREATE/DELETE/REPLACESCRIPT、LIST等RMAN命令不能包含在RUN命令块内。以下是执行命令块的例子：
 
-```sql
+```
 RMAN>  run {  
 2> allocate channel d1 type disk;  
 3> BACKUP FORMAT 'D: \%d_%s.bak' TABLESPACE USERS;  
@@ -132,9 +142,9 @@ RMAN>  run {
 
 在RMAN中可以运行 SQL 命令，运行SQL 命令的格式是： 
 
-	RMAN>SQL  'SQL 语句' ;
+	RMAN>SQL 'SQL 语句';
 	例如：
-	RMAN>SQL 'ALTER SYSTEM CHECKPOINT' ;
+	RMAN>SQL 'ALTER SYSTEM CHECKPOINT';
 	
 #### 4．运行脚本
 

@@ -37,7 +37,7 @@ SCN在数据库中是无处不在的，常见的事务表、控制文件、数�
 	
 查询转存文件：
 
-```sql
+```
 SQL> select value from v$diag_info where name='Default Trace File';
 
 VALUE
@@ -47,15 +47,15 @@ VALUE
 	
 包含数据库的名称、数据文件及日志文件的数量、数据库的检查点及SCN信息等：
 
-```shell
-Db ID=1422785319=0x54cdfb27, Db Name='ORCL' 			"数据库名称"
+```
+Db ID=1422785319=0x54cdfb27, Db Name='ORCL' 			#"数据库名称"
 …… …… 
 name #7: /u01/app/oracle/oradata/orcl/system01.dbf
 creation size=0 block size=8192 status=0xe head=7 tail=7 dup=1
 tablespace 0, index=1 krfil=1 prev_file=0
 unrecoverable scn: 0x0000.00000000 01/01/1988 00:00:00
-Checkpoint cnt:896 scn: 0x0581.11a7072f 05/07/2016 02:47:32 	"数据文件 Checkpoint scn"
-Stop scn: 0xffff.ffffffff 04/28/2016 10:19:34 			"数据文件 Stop scn"
+Checkpoint cnt:896 scn: 0x0581.11a7072f 05/07/2016 02:47:32 	#"数据文件 Checkpoint scn"
+Stop scn: 0xffff.ffffffff 04/28/2016 10:19:34 			#"数据文件 Stop scn"
 Creation Checkpointed at scn:  0x0000.00000007 08/15/2009 00:16:48
 ```
 

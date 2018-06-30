@@ -56,7 +56,7 @@ Bitmap索引适用于键值大量重复的列的查询。Bitmap索引对索引�
 
 Oracle的标准版不支持Bitmap索引。首先检查Oracle的版本和选项。
 
-```sql
+```
 SQL> SELECT * FROM V$VERSION;
 BANNER
 --------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ TNS for Linux: Version 11.2.0.3.0 - Production
 NLSRTL Version 11.2.0.3.0 - Production
 ```
 
-```sql
+```
 SQL> SELECT * FROM V$OPTION WHERE PARAMETER LIKE 'Bit%';
 PARAMETER                VALUE
 ------------------------ --------------
@@ -76,7 +76,7 @@ Bit-mapped indexes       TRUE
 
 其实建立Bitmap索引的语法十分简单，只不过是在CREATE INDEX之间增加了Bitmap关键字而已，其他语法和B树索引几乎完全一样。
 
-```sql
+```
 SQL> CREATE BITMAP INDEX IND_B_OWNER ON TEST_BITMAP(OWNER);
 索引已创建
 ```

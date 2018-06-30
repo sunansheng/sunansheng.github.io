@@ -10,7 +10,7 @@ tags: 启动
 数据库的启动极其简单，只需要以SYSDBA/SYSOPER身份登录，输入一条startup命令即可启动数据库。然而在这条命令之后，Oracle需要执行一系列复杂的操作，深入理解这些操作不仅有助于了解Oracle数据库的运行机制，还可以在故障发生时帮助用户快速的定位问题的根源所在，所以接下来将分析一下数据库的启动过程。
 
 Oracle 数据库的启动主要包含 3 个过程：
-- 启动数据库到 NOMOUNT状态；
+- 启动数据库到 NOMOUNT 状态；
 - 启动数据库到 MOUNT 状态；
 - 启动数据库到 OPEN 状态。
 
@@ -26,7 +26,7 @@ Oracle 数据库的启动主要包含 3 个过程：
 
 以下是正常情况下启动数据库到 NOMOUNT状态的过程： 
 
-```sql
+```
 [oracle@dbtest ~]$ sqlplus / as sysdba
 
 SQL*Plus: Release 11.2.0.1.0 Production on Wed May 4 10:09:35 2016
@@ -45,9 +45,9 @@ SQL>
 ```
 注意这里，Oracle根据参数文件的内容，创建了Instance，分配了相应的内存区域，启动了相应的后台进程。SGA的分配信息从以上输出中可以看到。
 
-观察告警日志文件(alert_<ORACLE_SID>.log，show parameter dump获取存储位置)，可以看到这一阶段的启动过程：读取参数文件，应用参数启动实例。所有在参数文件中定义的非缺省参数都会记录在告警日志文件中，以下是这一过程的日志摘要示例：
+观察告警日志文件(alert_\<ORACLE_SID\>.log，show parameter dump获取存储位置)，可以看到这一阶段的启动过程：读取参数文件，应用参数启动实例。所有在参数文件中定义的非缺省参数都会记录在告警日志文件中，以下是这一过程的日志摘要示例：
 
-```shell
+```
 Starting up:
 Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
 With the Partitioning, OLAP, Data Mining and Real Application Testing options.
@@ -98,16 +98,16 @@ ORACLE_BASE from environment = /u01/app/oracle
 
 	DBRM started with pid=6, OS id=9926 
 
-在Oracle 11g中，这部分信息有了进一步的增强，输出中不仅包含了OSID，而且每个后台进程的启动都有单独的时间标记(时间标记可以帮助用户判断每个后台进程启动时所消耗的时间，从而辅助进行问题诊断)。
+在Oracle 11g中，这部分信息有了进一步的增强，输出中不仅包含了OS ID，而且每个后台进程的启动都有单独的时间标记(时间标记可以帮助用户判断每个后台进程启动时所消耗的时间，从而辅助进行问题诊断)。
 
 
-### 2. V\\$PROCESS视图 
+### 2. V\$PROCESS视图 
 
 
 
-通过数据库中的 v\\$process 视图，可以找到对应于操作系统的每个进程信息： 
+通过数据库中的 v\$process 视图，可以找到对应于操作系统的每个进程信息： 
 
-```sql
+```
 SQL> select addr,pid,spid,username,program from v$process;  
 
 ADDR                    PID SPID                     USERNAME        PROGRAM
@@ -140,7 +140,7 @@ ADDR                    PID SPID                     USERNAME        PROGRAM
 ### 3. 参数文件的选择
 
 从Oracle9i开始，spfile被引入Oracle数据库，
-**`Oracle首选spfile<ORACLE_SID>.ora文件作为启动参数文件；如果该文件不存在，Oracle选择spfile.ora文件；如果前两者都不存在，Oracle将会选择init<ORACLE_SID>.ora文件；如果以上3个文件都不存在，Oracle将无法创建和启动Instance。`**Oracle在启动过程中，会在特定的路径中寻找参数文件，在UNIX/Linux下的路径为\\$ORACLE_HOME/dbs目录，在Windows上的路径为\$ORACLE_HOME\database目录。
+Oracle首选**spfile\<ORACLE_SID\>.ora**文件作为启动参数文件；如果该文件不存在，Oracle选择**spfile.ora**文件；如果前两者都不存在，Oracle将会选择**init\<ORACLE_SID\>.ora**文件；如果以上3个文件都不存在，Oracle将无法创建和启动Instance。Oracle在启动过程中，会在特定的路径中寻找参数文件，在UNIX/Linux下的路径为\\$ORACLE_HOME/dbs目录，在Windows上的路径为\$ORACLE_HOME\database目录。
 
 可以在SQL*PLUS中通过show parameter spfile命令来检查数据库是否使用了spfile文件，如果value不为Null，则数据库使用了spfile文件：
 
@@ -182,7 +182,7 @@ spfile                               string      /u01/dev/db/tech_st/11.2.0/dbs/
 
 控制文件信息在参数文件中记录类似如下所示： 
 
-*.control_files='/u01/app/oracle/oradata/orcl/control01.ctl','/u01/app/oracle/flash_recovery_area/orcl/control02.ctl'
+	*.control_files='/u01/app/oracle/oradata/orcl/control01.ctl','/u01/app/oracle/flash_recovery_area/orcl/control02.ctl'
 
 在NOMOUNT状态，可以查询v\\$parameter视图，获得控制文件信息，这部分信息来自启动的参数文件；当数据库MOUNT之后，可以查询v\\$controlfile视图获得关于控制文件的信息，此时，这部分信息来自控制文件：
 
@@ -227,7 +227,7 @@ STATUS  NAME                                                                    
 
 对以下数据库进行一个简单测试： 
 
-```sql
+```
 SQL> select name from v$datafile;
 
 NAME
@@ -242,7 +242,6 @@ NAME
 通过以下步骤，移除一个测试文件： 
 
 ```shell
-
 SQL> shutdown immediate;
 ORA-01109: database not open
 Database dismounted.
@@ -288,7 +287,7 @@ SQL>
 
 此时查询数据的动态视图v$recover_file，可以发现数据库记录了FILE NOT FOUND的错误信息：
 
-```sql
+```
 SQL> SELECT * FROM  v$recover_file;
 
      FILE# ONLINE  ONLINE_STATUS ERROR                 CHANGE# TIME
@@ -315,7 +314,7 @@ SQL> SELECT * FROM  v$recover_file;
 
 数据库里具有SYSDBA/SYSOPER 权限的用户可以通过v$pwfile_users视图查询得到。 
 
-```sql
+```
 SQL> SELECT * FROM  v$pwfile_users;
 
 USERNAME                       SYSDBA SYSOPER SYSASM
