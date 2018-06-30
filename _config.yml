@@ -3,9 +3,10 @@ title: 苏南生
 name: 苏南生的博客
 description:   A Oracle EBS Technology
 url: https://www.sunansheng.com
+img: /images/posts/
 
 # 自定义post url
-permalink: /blog/article/:year:month:day/:title.html
+permalink: /blog/:year:month:day/:title.html
 timezone: Asia/Chongqing
 
 # Overriden by GitHub Pages: https://help.github.com/articles/using-jekyll-with-pages#configuring-jekyll
