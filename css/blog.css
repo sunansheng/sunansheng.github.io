@@ -49,13 +49,17 @@ article h1 {
 
 p{
   text-align: justify;
-  margin: 20px 0;
+  margin: 20px 0 5px 0;
 }
 
 .post ul, .post ol ,p{
   /*padding-left: 2.5em;*/
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.8rem;
+}
+
+.post li{
+  margin: 5px 0;
 }
 
 a{text-decoration:none}
@@ -65,8 +69,8 @@ a:hover {
 }
 
 h2 {
-    margin-top: 35px;
-    margin-bottom: 30px;
+    margin-top: 40px;
+    margin-bottom: 25px;
 }
 
 h2:before {
@@ -583,18 +587,18 @@ img[alt=drawing] { width: 60%; }
 	-ms-user-select: text;-moz-user-select: text;user-select: text;
 }
 .post pre{
-    font-size:.8rem;  /*设置代码字体大小*/
-    font-family: Consolas,"Liberation Mono",Courier,monospace;/*设置代码字体类型*/
+    font-size:.85rem;  /*设置代码字体大小*/
+    font-family: Menlo,Monaco,Consolas,"Courier New",Georgia,"Microsoft YaHei";
 }
 .post pre code{
-    font-size:.9rem;  /*设置代码字体大小*/
+    font-size:.85rem;  /*设置代码字体大小*/
     font-family: Menlo,Monaco,Consolas,"Courier New",Georgia,"Microsoft YaHei";
     border: none;
     line-height: 170%;
 }
 .post code {
   /*font-size: 18px;原主题定义的代码字体大小*/
-  font-size: 90%;
+  font-size: .85rem;
   background-color: #F4F4F4;
   border: 1px solid #eee;
   padding: 0 .2em;
