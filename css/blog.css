@@ -601,10 +601,11 @@ img[alt=drawing] { width: 60%; }
   /*font-size: 18px;原主题定义的代码字体大小*/
   font-size: .85rem;
   background-color: #F4F4F4;
-  border: 1px solid #eee;
+  /*border: 1px solid #eee;*/
   padding: 0 .2em;
+  margin:0px 8px;
   font-family: Menlo,Monaco,Consolas,"Courier New",Georgia,"Microsoft YaHei";
-  border-radius: 4px;
+  /*border-radius: 4px;*/
 }
 
 /* terminal */
