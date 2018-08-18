@@ -42,9 +42,13 @@ layout: default
               </div>
           </div>
   	   {{ content }}
+	   
+	   <p>本文固定地址:{{ site.url }}{{ page.url }}</p>
+	   
   	</div>
-	<blockquote>原文地址:<a href="{{ site.url }}{{ page.url }}">{{ site.url }}{{ page.url }}</a><br/></blockquote>
+
 	</div>
+	
 
 {% include new-old.html %}
 

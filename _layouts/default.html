@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="aexITLS38FdIRzwj25OVWxm87rpa9l-UV0URTyC9cTs" />
   <title>
-    {% if page.url == '/index.html' or page.url == '' or page.url == '/' %}
-      苏南生的博客 | Nansheng.Su Blog
-    {% else %}
-      {{ page.title }} | Nansheng.Su - 苏南生
-    {% endif %}
-      
-
+    {% if page.url == '/index.html' or page.url == '' or page.url == '/' or page.url == '/blog/'  
+	%}苏南生的博客{% 
+	else
+	%}{{ page.title }} - 苏南生的博客{% endif %}
   </title>
   <link rel="stylesheet" href="/css/site.css">
 
@@ -155,6 +152,16 @@
 
 <script src='/js/jquery.min.js'></script>
 <!-- Bootstrap Core JavaScript -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e84cf378dd45fc9956e961b11f2e8d9b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 
  {% include search.html %}
  
